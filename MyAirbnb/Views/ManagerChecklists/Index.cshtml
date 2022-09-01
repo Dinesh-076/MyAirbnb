@@ -1,0 +1,47 @@
+﻿
+@model IEnumerable<MyAirbnb.Controllers.ManagerChecklistsController.SpaceCategoriesManagerList>
+
+
+<h1>Checklists</h1>
+<hr />
+
+<div class="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Space Type</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CheckInItems)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CheckOutItems)
+                    </td>
+                    <td>
+                        @if (item.HasDefinedItems)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><span> &#x7C;</span>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Create</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

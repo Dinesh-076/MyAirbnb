@@ -1,0 +1,23 @@
+﻿@page
+@{
+    ViewData["Title"] = "Admin";
+    ViewData["ActivePage"] = ManageNavPages.Admin;
+}
+
+<div class="row">
+    <div class="col-lg-12">
+
+
+        <a asp-controller="AdminManagers" asp-action="Index" class="btn btn-primary">Manage managers</a>
+        <br /><br />
+        <a asp-controller="AdminClients" asp-action="Index" class="btn btn-primary">Manage clients</a>
+        <br /><br />
+        <a asp-controller="AdminSpaceCategories" asp-action="Index" class="btn btn-primary">Manage space categories</a>
+
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

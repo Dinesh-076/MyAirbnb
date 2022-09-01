@@ -1,0 +1,105 @@
+﻿@model MyAirbnb.Models.Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{ var m = Model;}
+
+<div class="container">
+
+    <div class="position-relative d-flex">
+
+        <div class="mx-3 position-relative w-75">
+            <h3>@m.Title</h3>
+            <h5>@m.City - @m.Address</h5>
+
+            @{await Html.RenderPartialAsync("_RatingPartial", m.Rating); }
+        </div>
+
+        <div class="position-absolute" style="text-align: right;min-width: 100px; right: 0px;">
+            <span>@m.Price₹/night</span>
+            <br />
+            <div class="d-inline-block mt-3">
+                <p class="d-inline-block">
+                    <img src="/icon/room-icon.png" class="icon-m" />
+                    <span class="ml-1">@m.NBedrooms</span>
+                </p>
+                <span class="mx-1">&#124;</span>
+                <p class="d-inline-block">
+                    <span class="mr-1">@m.NBeds</span>
+                    <img src="/icon/bed-icon.png" class="icon-m" />
+                </p>
+            </div>
+            <br />
+            <p class="d-inline-block">
+                <a class="btn page-link" asp-controller="ClientReservations" asp-action="Create" asp-route-id="@m.Id">Reserve</a>
+            </p>
+
+        </div>
+
+    </div>
+
+    @if (m.PostImages != null && m.PostImages.Count > 0)
+    {
+        <div id="carousel" class="carousel slide w-75 mx-auto mt-4" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+                @for (int i = 0; i < m.PostImages.Count; i++)
+                {
+                    <li data-target="#carousel" data-slide-to="@i"></li>
+                }
+            </ol>
+            <div class="carousel-inner">
+                @for (int i = 0; i < m.PostImages.Count; i++)
+                {
+                    var extra = "";
+                    if (i == 0) extra = "active";
+                    <div class="carousel-item @extra">
+                        <img src="@m.PostImages[i].FilePath" class="details-post-image" />
+                    </div>
+                }
+            </div>
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+        </div>
+    }
+
+    <div class="container mt-5">
+        <h5 class="d-inline">Space Category : @m.SpaceCategory.Name</h5>
+    </div>
+    <div class="container mt-3">
+        <h5>Description</h5>
+        <p style="white-space: pre-wrap;">@m.Description</p>
+    </div>
+
+   
+
+
+
+    <div class="container mt-5">
+        <h5>Comments :</h5>
+        @if (m.Comments != null && m.Comments.Count > 0)
+        {
+            @foreach (var c in m.Comments)
+            {
+                <div class="d-table">
+                    <span class="col-2 font-weight-bold">@c.User.FirstName @c.User.LastName:</span> 
+                    <span style="white-space:pre-wrap" class="col-10">@c.Text</span>
+                </div>
+            }
+        }
+        else
+        {
+            <p>There are no comments yet.</p>
+        }
+    </div>
+
+</div>

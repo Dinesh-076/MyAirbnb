@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MyAirbnb.Models.ManagerViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>MyAirbnb Managers</h1>
+
+<table class="table">
+    @*<thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+        </tr>
+    </thead>*@
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Manager.FirstName) @Html.DisplayFor(model => item.Manager.LastName)
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Manager.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Manager.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,92 @@
+﻿@model MyAirbnb.Controllers.WorkerPostsController.IndexModel
+
+@{
+    ViewData["Title"] = "Worker Posts";
+
+}
+
+@if (Model.User != null)
+{
+
+    <h1>Worker Details</h1>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.FirstName)
+            @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.PhoneNumber)
+        </dd>
+    </dl>
+
+    <hr />
+}
+
+<h4>Worker Posts</h4>
+
+<p>
+    @if (Model.WorkerId != null)
+    {
+        <a asp-action="Create" asp-route-workerId="@Model.WorkerId">Create New</a>
+    }
+    else
+    {
+        <a asp-action="Create">Create New</a>
+    }
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Address</th>
+            <th>Price</th>
+            <th>Beds</th>
+            <th>Bedrooms</th>
+            <th>Rating</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Posts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NBeds)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NBedrooms)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

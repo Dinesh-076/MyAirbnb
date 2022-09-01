@@ -1,0 +1,16 @@
+﻿@model MyAirbnb.Models.Reservation
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Reservation Details</h1>
+<hr />
+
+<div>
+    @{ await Html.RenderPartialAsync("_ReservationDetails",Model);}
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
